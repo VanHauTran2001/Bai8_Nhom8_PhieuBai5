@@ -152,12 +152,26 @@ public class QuanLyPhongHoc {
                             if(!phongHocs.contains(ph)){
                                 System.out.println("Khong tim thay ma phong " + maPhongLT);
                             }else{
-                                ph = phongHocs.get(phongHocs.indexOf(ph));
                                 PhongHocLyThuyet.inTieuDe();
-                                ph.xuat();
+                                for (PhongHoc phongHoc : phongHocs) {
+                                    if(phongHoc.getMaPhong().equalsIgnoreCase(maPhongLT))
+                                    {
+                                        phongHoc.xuat();
+                                    }
+                                }
+                                
                             } 
-                            
-                          
+//                            ArrayList<PhongHocLyThuyet> phTim = new ArrayList<>();
+//                            for (PhongHoc phongHoc : phongHocs) {
+//                                if(phongHoc.getMaPhong().equalsIgnoreCase(maPhongLT)){
+//                                    phTim.add((PhongHocLyThuyet) phongHoc);
+//                                }
+//                            }if(phTim.size()>0){
+//                                System.out.println(phTim.toString());
+//                            }else{
+//                                System.out.println("Khong tim thay " + maPhongLT);
+//                            }
+//                          
                             break;
                         case 2:
                             System.out.println("Nhap ma phong can tim :");
@@ -233,38 +247,90 @@ public class QuanLyPhongHoc {
         PhongHocLyThuyet.inTieuDe();
         for(PhongHoc ph : phongHocs){
             if(ph instanceof PhongHocLyThuyet){
-               
                     ph.xuat();
-                
-                
             }
         }
         System.out.println("\n------------DANH SACH PHONG MAY TINH-------------");
         PhongMayTinh.inTieuDe();
         for(PhongHoc ph : phongHocs){
             if(ph instanceof PhongMayTinh){
-               
                     ph.xuat();
-                
             }
         }
         System.out.println("\n------------DANH SACH PHONG THI NGHIEM -------------");
         PhongThiNghiem.inTieuDe();
         for(PhongHoc ph : phongHocs){
-            if(ph instanceof PhongThiNghiem){
-               
+            if(ph instanceof PhongThiNghiem){  
                     ph.xuat();
-                }
-            
+            }         
         }
     }
 
     private static void giamDanTheoDienTich() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("==============DANH SACH GIAM DAN THEO DIEN TICH==============");
+        Collections.sort(phongHocs,new Comparator<PhongHoc>(){
+            @Override
+            public int compare(PhongHoc o2, PhongHoc o1) {
+               
+              return o1.soBongDen < o2.soBongDen ? 1:-1;
+                
+            }
+            
+        });
+        System.out.println("\n------------DANH SACH PHONG HOC LY THUYET-------------");
+        PhongHocLyThuyet.inTieuDe();
+        for(PhongHoc ph : phongHocs){
+            if(ph instanceof PhongHocLyThuyet){
+                    ph.xuat();
+            }
+        }
+        System.out.println("\n------------DANH SACH PHONG MAY TINH-------------");
+        PhongMayTinh.inTieuDe();
+        for(PhongHoc ph : phongHocs){
+            if(ph instanceof PhongMayTinh){
+                    ph.xuat();
+            }
+        }
+        System.out.println("\n------------DANH SACH PHONG THI NGHIEM -------------");
+        PhongThiNghiem.inTieuDe();
+        for(PhongHoc ph : phongHocs){
+            if(ph instanceof PhongThiNghiem){  
+                    ph.xuat();
+            }         
+        }
     }
 
     private static void tangdanTheoSoBongDen() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("==============DANH SACH TANG DAN THEO SO BONG DEN==============");
+        Collections.sort(phongHocs,new Comparator<PhongHoc>(){
+            @Override
+            public int compare(PhongHoc o1, PhongHoc o2) {
+               
+                return o1.soBongDen > o2.soBongDen ? 1:-1;
+            }
+            
+        });
+        System.out.println("\n------------DANH SACH PHONG HOC LY THUYET-------------");
+        PhongHocLyThuyet.inTieuDe();
+        for(PhongHoc ph : phongHocs){
+            if(ph instanceof PhongHocLyThuyet){
+                    ph.xuat();
+            }
+        }
+        System.out.println("\n------------DANH SACH PHONG MAY TINH-------------");
+        PhongMayTinh.inTieuDe();
+        for(PhongHoc ph : phongHocs){
+            if(ph instanceof PhongMayTinh){
+                    ph.xuat();
+            }
+        }
+        System.out.println("\n------------DANH SACH PHONG THI NGHIEM -------------");
+        PhongThiNghiem.inTieuDe();
+        for(PhongHoc ph : phongHocs){
+            if(ph instanceof PhongThiNghiem){  
+                    ph.xuat();
+            }         
+        }
     }
 
     private static void updateMayTinh() {
