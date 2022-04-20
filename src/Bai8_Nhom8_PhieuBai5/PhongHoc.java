@@ -93,7 +93,7 @@ public abstract class PhongHoc implements Serializable{
                 for(int i=0;i<dsPhongHoc.size();i++){
                     if(dsPhongHoc.get(i).getMaPhong().equalsIgnoreCase(this.maPhong)){
                         flag = false;
-                        System.out.println("Nhap lai :");
+                        System.out.println("Nhap lai ma phong :");
                         break;
                     }
                 }
@@ -106,12 +106,12 @@ public abstract class PhongHoc implements Serializable{
         dayNha = sc.nextLine();
         try {
             System.out.println("Nhap dien tich :");
-            setDienTich(sc.nextDouble());
+            setDienTich(Double.parseDouble(sc.nextLine()));
         } catch (Exception e1) {
             System.out.println("Loi :" + e1.toString());
         }
         System.out.println("Nhap so bong den :");
-        soBongDen = sc.nextInt();
+        soBongDen = Integer.parseInt(sc.nextLine());
     }
     public abstract String kiemTraDatChuan();
     

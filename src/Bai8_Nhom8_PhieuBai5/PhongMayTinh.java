@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class PhongMayTinh extends PhongHoc implements Serializable{
     ArrayList<PhongHoc> phongHocs = new ArrayList<>();
-    private int soMayTinh;
+    public int soMayTinh;
 
     public PhongMayTinh(String maPhong, String dayNha, double dienTich, int soBongDen,int soMayTinh) {
         super(maPhong, dayNha, dienTich, soBongDen);
@@ -35,7 +35,7 @@ public class PhongMayTinh extends PhongHoc implements Serializable{
         Scanner sc = new Scanner(System.in);
         super.nhap(dsPhongHoc); 
         System.out.println("Nhap so may tinh :");
-        soMayTinh = sc.nextInt();
+        soMayTinh = Integer.parseInt(sc.nextLine());
     }
     
     @Override
@@ -49,9 +49,9 @@ public class PhongMayTinh extends PhongHoc implements Serializable{
     }
     @Override
     public String kiemTraDatChuan() {
-       int soBong = (int) (dienTich%10);
+      
        
-        if(soBongDen >= soBong && dienTich/soMayTinh>=1.5){
+        if(((dienTich/soBongDen)>=10) && dienTich/soMayTinh>=1.5){
             return "Dat Chuan!";
         }else{
             return "Khong Dat Chuan!";

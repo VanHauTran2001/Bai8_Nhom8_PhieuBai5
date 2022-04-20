@@ -52,8 +52,8 @@ public class PhongHocLyThuyet extends PhongHoc implements Serializable{
 
     @Override
     public String kiemTraDatChuan() {
-     int soBong = (int) (dienTich%10);
-        if(soBongDen >= soBong && mayChieu.equalsIgnoreCase("co")){
+     
+        if(((dienTich/soBongDen)>=10) && mayChieu.equalsIgnoreCase("co")){
             return "Dat Chuan!";
         }else{
             return "Khong Dat Chuan!";

@@ -50,9 +50,9 @@ public class PhongThiNghiem extends PhongHoc implements Serializable{
 
     @Override
     public String kiemTraDatChuan() {
-        int soBong = (int) (dienTich%10);
        
-        if(soBongDen >= soBong && bonRua.equalsIgnoreCase("co")){
+       
+        if(((dienTich/soBongDen)>=10) && bonRua.equalsIgnoreCase("co")){
             return "Dat Chuan!";
         }else{
             return "Khong Dat Chuan!";
@@ -66,7 +66,7 @@ public class PhongThiNghiem extends PhongHoc implements Serializable{
         System.out.println("Nhap chuyen nganh :");
         chuyenNganh = sc.nextLine();
         System.out.println("Nhap suc chua :");
-        sucChua = sc.nextInt();
+        sucChua = Integer.parseInt(sc.nextLine());
         System.out.println("Nhap bon rua :");
         bonRua = sc.nextLine();
     }

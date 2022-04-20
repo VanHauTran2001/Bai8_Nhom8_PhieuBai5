@@ -15,16 +15,16 @@ public class QuanLyPhongHoc {
 //        new PhongMayTinh("MT1","T1",40,4,7),
 //        new PhongThiNghiem("TN1", "A1", 30, 3,"IT",15,"khong")
 //    };
-    
+    static String fileName = "D:\\JavaCore\\Bai8_Nhom8_PhieuBai5\\phongthi.txt";
+    static DBClass db = new DBClass();
     static ArrayList<PhongHoc> phongHocs = new ArrayList<>();
     static PhongHoc ph;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         int n ;
-//        show();
         do {            
             showMenu();
             System.out.println("Nhap lua chon cua ban :");
-            n = sc.nextInt();
+            n = Integer.parseInt(sc.nextLine());
             switch (n) {
                 case 1:
                     nhapDS();
@@ -48,7 +48,7 @@ public class QuanLyPhongHoc {
                     tangdanTheoSoBongDen();
                     break;
                 case 8:
-                    updateMayTinh();
+                    updateMayTinh(phongHocs);
                     break;
                 case 9:
                     xoaPhongHocTheoMaPhong();
@@ -59,7 +59,11 @@ public class QuanLyPhongHoc {
                 case 11:
                     showPhong60May();
                     break;
-                case 12:
+                case 12 :
+                    luuFile();
+                case 13 :
+                    docFile();
+                case 14:
                     System.exit(0);
                     break;
             }
@@ -103,7 +107,9 @@ public class QuanLyPhongHoc {
         System.out.println("9.Xoa mot phong hoc khi biet ma");
         System.out.println("10.In ra tong so phong hoc");
         System.out.println("11.In ra danh sach cac phong may co 60 may");
-        System.out.println("12.Thoat");
+        System.out.println("12.Luu thong tin phong hoc vao File");
+        System.out.println("13.Doc thong tin phong hoc tu File");
+        System.out.println("13.Thoat !");
         System.out.println("----------------------------------------");
     }
 
@@ -111,7 +117,7 @@ public class QuanLyPhongHoc {
                     System.out.println("1.Nhap danh sach phong hoc ly thuyet");
                     System.out.println("2.Nhap danh sach phong may tinh");
                     System.out.println("3.Nhap danh sach phong thi nghiem");
-                    int choose = sc.nextInt();
+                    int choose = Integer.parseInt(sc.nextLine());
                     switch (choose) {
                         case 1:                        
                             ph = new PhongHocLyThuyet();
@@ -133,27 +139,27 @@ public class QuanLyPhongHoc {
                     }
     }
 
-    private static void timKiem(ArrayList<PhongHoc> listPH) {
+    private static void timKiem(ArrayList<PhongHoc> listPH) throws Exception{
                    
                     System.out.println("Nhap phong ban muon tim kiem :");
                     System.out.println("1.Tim kiem phong hoc ly thuyet");
                     System.out.println("2.Tim kiem phong may tinh");
                     System.out.println("3.Tim kiem phong thi nghiem");
              
-                    int choose = sc.nextInt();
+                    int choose = Integer.parseInt(sc.nextLine());
                     switch (choose) {
                         
                         case 1:                        
                             
                             System.out.println("Nhap ma phong can tim :");
                             String maPhongLT = sc.nextLine();
-                            sc.nextLine();
+                            
                             ph = new PhongHocLyThuyet(maPhongLT);
                             if(!phongHocs.contains(ph)){
                                 System.out.println("Khong tim thay ma phong " + maPhongLT);
                             }else{
                                 PhongHocLyThuyet.inTieuDe();
-                                for (PhongHoc phongHoc : phongHocs) {
+                                for (PhongHoc phongHoc : listPH) {
                                     if(phongHoc.getMaPhong().equalsIgnoreCase(maPhongLT))
                                     {
                                         phongHoc.xuat();
@@ -161,40 +167,37 @@ public class QuanLyPhongHoc {
                                 }
                                 
                             } 
-//                            ArrayList<PhongHocLyThuyet> phTim = new ArrayList<>();
-//                            for (PhongHoc phongHoc : phongHocs) {
-//                                if(phongHoc.getMaPhong().equalsIgnoreCase(maPhongLT)){
-//                                    phTim.add((PhongHocLyThuyet) phongHoc);
-//                                }
-//                            }if(phTim.size()>0){
-//                                System.out.println(phTim.toString());
-//                            }else{
-//                                System.out.println("Khong tim thay " + maPhongLT);
-//                            }
-//                          
                             break;
                         case 2:
                             System.out.println("Nhap ma phong can tim :");
                             String maPhongMT = sc.nextLine();
+                            sc.nextLine();
                             ph = new PhongMayTinh(maPhongMT);
                             if(!phongHocs.contains(ph)){
                                 System.out.println("Khong co ma phong can tim kiem !");
                             }else{
-                                ph = phongHocs.get(phongHocs.indexOf(ph));
                                 PhongMayTinh.inTieuDe();
-                                ph.xuat();
+                                for (PhongHoc phongHoc : listPH) {
+                                    if(phongHoc.getMaPhong().equalsIgnoreCase(maPhongMT)){
+                                        phongHoc.xuat();
+                                    }
+                                }
                             }                           
                             break;
                         case 3:
                            System.out.println("Nhap ma phong can tim :");
                             String maPhongTN = sc.nextLine();
+                            
                             ph = new PhongThiNghiem(maPhongTN);
                             if(!phongHocs.contains(ph)){
                                 System.out.println("Khong co ma phong can tim kiem !");
                             }else{
-                                ph = phongHocs.get(phongHocs.indexOf(ph));
                                 PhongThiNghiem.inTieuDe();
-                                ph.xuat();
+                                for (PhongHoc phongHoc : listPH) {
+                                    if(phongHoc.getMaPhong().equalsIgnoreCase(maPhongTN)){
+                                        phongHoc.xuat();
+                                    }
+                                }
                             }                         
                             break;  
                         }
@@ -333,20 +336,184 @@ public class QuanLyPhongHoc {
         }
     }
 
-    private static void updateMayTinh() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private static void updateMayTinh(ArrayList<PhongHoc> listPH) {
+        String suaTT;
+        System.out.println("Nhap vao ma phong muon chinh sua thong tin:");             
+        suaTT = sc.nextLine();
+        
+
+        for (PhongHoc phongHoc : listPH) {
+                if(phongHoc.getMaPhong().equals(suaTT))
+                {
+                    System.out.println("Nhap vao so may tinh moi :");
+                    ((PhongMayTinh) phongHoc).setSoMayTinh(Integer.parseInt(sc.nextLine()));
+                }           
+        }
     }
 
     private static void xoaPhongHocTheoMaPhong() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+                    System.out.println("Nhap phong ban muon xoa :");
+                    System.out.println("1.Xoa phong hoc ly thuyet");
+                    System.out.println("2.Xoa phong may tinh");
+                    System.out.println("3.Xoa phong thi nghiem");
+             
+                    int choose = Integer.parseInt(sc.nextLine());
+                    switch (choose) {
+                        
+                        case 1:                        
+                            
+                            System.out.println("Nhap ma phong can xoa :");
+                            String maPhongLT = sc.nextLine();
+                            
+                            ph = new PhongHocLyThuyet(maPhongLT);
+                            if(!phongHocs.contains(ph)){
+                                System.out.println("Khong tim thay ma phong " + maPhongLT);
+                            }else{
+                                System.out.println("Ban co chac chan muon xoa phong co ma phong " + maPhongLT + " khong ? ");
+                                System.out.println("1.Co");
+                                System.out.println("2.Khong");
+                                int luaChonXoa = Integer.parseInt(sc.nextLine());
+                                switch (luaChonXoa) {
+                                    case 1:
+                                        phongHocs.remove(ph);
+                                        System.out.println("Xoa thanh cong !");
+                                        break;
+                                    case 2:
+                                        break;
+                                }
+                                
+                                
+                            } 
+                            break;
+                        case 2:
+                            System.out.println("Nhap ma phong can xoa :");
+                            String maPhongMT = sc.nextLine();
+                            
+                            ph = new PhongMayTinh(maPhongMT);
+                            if(!phongHocs.contains(ph)){
+                                System.out.println("Khong co ma phong can tim kiem !");
+                            }else{
+                                System.out.println("Ban co chac chan muon xoa phong co ma phong " + maPhongMT + " khong ? ");
+                                System.out.println("1.Co");
+                                System.out.println("2.Khong");
+                                int luaChonXoa = Integer.parseInt(sc.nextLine());
+                                switch (luaChonXoa) {
+                                    case 1:
+                                        phongHocs.remove(ph);
+                                        System.out.println("Xoa thanh cong !");
+                                        break;
+                                    case 2:
+                                        break;
+                                }
+                                
+                            }                           
+                            break;
+                        case 3:
+                           System.out.println("Nhap ma phong can xoa :");
+                            String maPhongTN = sc.nextLine();
+                            
+                            ph = new PhongThiNghiem(maPhongTN);
+                            if(!phongHocs.contains(ph)){
+                                System.out.println("Khong co ma phong can tim kiem !");
+                            }else{
+                                System.out.println("Ban co chac chan muon xoa phong co ma phong " + maPhongTN + " khong ? ");
+                                System.out.println("1.Co");
+                                System.out.println("2.Khong");
+                                int luaChonXoa = Integer.parseInt(sc.nextLine());
+                                switch (luaChonXoa) {
+                                    case 1:
+                                        phongHocs.remove(ph);
+                                        System.out.println("Xoa thanh cong !");
+                                        break;
+                                    case 2:
+                                        break;
+                                }
+                                
+                            }                         
+                            break;  
+                        }
     }
 
     private static void inTongSoPhong() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Tong so phong hoc la : " + phongHocs.size());
     }
 
     private static void showPhong60May() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        System.out.println("============DANH SACH PHONG MAY CO 60 MAY=============");
+        System.out.println("\n------------DANH SACH PHONG MAY TINH-------------");
+        PhongMayTinh.inTieuDe();
+        for (PhongHoc phongHoc : phongHocs) {
+            if(phongHoc instanceof PhongMayTinh){
+                if(((PhongMayTinh) phongHoc).soMayTinh==60){
+                    phongHoc.xuat();
+                }
+            }
+        }
+    }
+    private static void luuFile(){
+        try {
+            System.out.println("Nhap phong hoc ban muon luu");
+            System.out.println("1.Phong hoc ly thuyet");
+            System.out.println("2.Phong hoc may tinh");
+            System.out.println("3.Phong thi nghiem");
+            System.out.println("4.Thoat");
+            int chon = Integer.parseInt(sc.nextLine());
+            switch (chon) {
+                case 1:
+                    ph = new PhongHocLyThuyet();
+                    db.luuFile(fileName,ph);
+                    System.out.println("Luu file thanh cong !");
+                    break;
+                case 2:
+                    ph = new PhongMayTinh();
+                    db.luuFile(fileName,ph);
+                    System.out.println("Luu file thanh cong !");
+                    break;
+                case 3:
+                    ph = new PhongThiNghiem();
+                    db.luuFile(fileName,ph);
+                    System.out.println("Luu file thanh cong !");
+                    break;
+                case 4:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    private static void docFile() {
+        try {
+            System.out.println("Nhap phong hoc ban muon doc file");
+            System.out.println("1.Phong hoc ly thuyet");
+            System.out.println("2.Phong hoc may tinh");
+            System.out.println("3.Phong thi nghiem");
+            System.out.println("4.Thoat");
+            int chon = Integer.parseInt(sc.nextLine());
+            switch (chon) {
+                case 1:
+                    ph = new PhongHocLyThuyet();
+                    ph = (PhongHocLyThuyet) db.docFile(fileName);
+                    System.out.println(ph.toString());
+                    break;
+                case 2:
+                    ph = new PhongMayTinh();
+                    ph = (PhongMayTinh) db.docFile(fileName);
+                    System.out.println(ph.toString());
+                    break;
+                case 3:
+                    ph = new PhongThiNghiem();
+                    ph = (PhongThiNghiem) db.docFile(fileName);
+                    System.out.println(ph.toString());
+                    break;
+                case 4:
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
     
 }
